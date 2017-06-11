@@ -43,3 +43,10 @@ button {
 button:hover {
   border: 2px solid #ccc;
 }
+
+@media (max-width: 500px) {
+  td {
+    width: 100px;
+    height: 100px;
+  }
+}
