@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cell from './Cell.jsx';
+import Tally from './Tally.jsx'
 
 export default class Grid extends Component {
   constructor(props) {
@@ -8,8 +9,12 @@ export default class Grid extends Component {
       currentPlayer: "X",               // X or O
       playGrid: this.createGrid(),      // Matrix representing grid
       status: "Player X",               // Winner, Draw, Player
-      gameOver: false                   // if the game is over or not
+      gameOver: false,                  // if the game is over or not
+      tallyX: 0,
+      tallyO: 0,
+      tallyDraw: 0
     };
+    this.startPlayer = "X";             //Player that plays first
     this.numPlayed = 0;                 // Number of moves played
   }
   createGrid() {
@@ -42,8 +47,13 @@ export default class Grid extends Component {
     if(win) {
       this.setState({
         status: ("Winner " + this.state.currentPlayer),
-        gameOver: true
+        gameOver: true,
       });
+      if(this.state.currentPlayer === "X") {
+        this.setState({tallyX: this.state.tallyX + 1});
+      } else {
+        this.setState({tallyO: this.state.tallyO + 1});
+      }
       return;
     }
 
@@ -51,7 +61,8 @@ export default class Grid extends Component {
       console.log("here");
       this.setState({
         status: "Draw",
-        gameOver: true
+        gameOver: true,
+        tallyDraw: this.state.tallyDraw + 1
       });
       return;
     }
@@ -70,7 +81,7 @@ export default class Grid extends Component {
     if((playGrid[0][0].letter ===  playGrid[1][1].letter && playGrid[0][0].letter === playGrid[2][2].letter) ||
       (playGrid[0][2].letter ===  playGrid[1][1].letter && playGrid[0][2].letter === playGrid[2][0].letter))
     {
-      if(playGrid[1][1].letter !== "" ) {
+      if(playGrid[1][1].letter !== "") {
         return true;
       }
     }
@@ -95,10 +106,11 @@ export default class Grid extends Component {
     return false;
   }
   reset() {
+    this.startPlayer = (this.startPlayer === "X") ? "O" : "X";
     this.setState({
-      currentPlayer: "X",
+      currentPlayer: this.startPlayer,
       playGrid: this.createGrid(),
-      status: "Player X",
+      status: "Player " + this.startPlayer,
       gameOver: false
     });
     this.numPlayed = 0;
@@ -126,7 +138,8 @@ export default class Grid extends Component {
             {cells(2)}
           </tbody>
         </table>
-        <button onClick={this.reset.bind(this)}>Reset</button>
+        <button onClick={this.reset.bind(this)}>Next Game</button>
+        <Tally tallyX={this.state.tallyX} tallyO={this.state.tallyO} tallyDraw={this.state.tallyDraw} />
       </div>
     );
   }
