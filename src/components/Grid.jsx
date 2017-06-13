@@ -117,15 +117,19 @@ export default class Grid extends Component {
   }
   render() {
 
-    var cells = (i) => {
+    var cells = () => {
       var _playGrid = this.state.playGrid;
-      return (
-        <tr>
-          <Cell key={i + "" + 0} cell={_playGrid[i][0]} play={this.play.bind(this)}/>
-          <Cell key={i + "" + 1} cell={_playGrid[i][1]} play={this.play.bind(this)}/>
-          <Cell key={i + "" + 2} cell={_playGrid[i][2]} play={this.play.bind(this)}/>
-        </tr>
-      );
+      var rowArray = [];
+      for(var i = 0; i < 3; i++) {
+        rowArray.push(
+          <tr key={i}>
+            <Cell key={i + "" + 0} cell={_playGrid[i][0]} play={this.play.bind(this)}/>
+            <Cell key={i + "" + 1} cell={_playGrid[i][1]} play={this.play.bind(this)}/>
+            <Cell key={i + "" + 2} cell={_playGrid[i][2]} play={this.play.bind(this)}/>
+          </tr>
+        );
+      }
+      return rowArray;
     };
 
     return (
@@ -133,9 +137,7 @@ export default class Grid extends Component {
         <h1>{this.state.status}</h1>
         <table className={"Grid Grid-" + this.state.gameOver}>
           <tbody>
-            {cells(0)}
-            {cells(1)}
-            {cells(2)}
+            {cells()}
           </tbody>
         </table>
         <button onClick={this.newGame.bind(this)}>Next Game</button>
