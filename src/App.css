@@ -46,7 +46,11 @@ button {
 }
 
 button:hover {
-  border: 2px solid #ccc;
+  border: 2px solid white;
+}
+
+button:active, button:focus {
+  outline: none;
 }
 
 .black-bg {

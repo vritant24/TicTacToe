@@ -105,7 +105,10 @@ export default class Grid extends Component {
 
     return false;
   }
-  newGame() {
+  newMatch() {
+    if(!this.state.gameOver) {
+      return;
+    }
     this.startPlayer = (this.startPlayer === "X") ? "O" : "X";
     this.setState({
       currentPlayer: this.startPlayer,
@@ -154,7 +157,7 @@ export default class Grid extends Component {
           </tbody>
         </table>
         <div className="buttons">
-          <button className = "black-bg" onClick={this.newGame.bind(this)}>Next Match</button>
+          <button className = "black-bg" onClick={this.newMatch.bind(this)}>New Match</button>
           <button className = "red-bg" onClick={this.reset.bind(this)}>Reset</button>
         </div>
         <Tally tallyX={this.state.tallyX} tallyO={this.state.tallyO} tallyDraw={this.state.tallyDraw} />
