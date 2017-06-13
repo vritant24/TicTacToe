@@ -153,8 +153,10 @@ export default class Grid extends Component {
             {cells()}
           </tbody>
         </table>
-        <button onClick={this.newGame.bind(this)}>Next Game</button>
-        <button onClick={this.reset.bind(this)}>Reset</button>
+        <div className="buttons">
+          <button className = "black-bg" onClick={this.newGame.bind(this)}>Next Match</button>
+          <button className = "red-bg" onClick={this.reset.bind(this)}>Reset</button>
+        </div>
         <Tally tallyX={this.state.tallyX} tallyO={this.state.tallyO} tallyDraw={this.state.tallyDraw} />
       </div>
     );
