@@ -18,7 +18,7 @@ export default class Grid extends Component {
   }
   render() {
     return (
-      <table>
+      <table className="Grid">
         <tbody>
           <tr>
             <td> X </td><td> O </td><td> Draw </td>

@@ -5,17 +5,17 @@ import Tally from './Tally.jsx'
 export default class Grid extends Component {
   constructor(props) {
     super(props);
+    this.startPlayer = "X";             //Player that plays first
+    this.numPlayed = 0;                 // Number of moves played
     this.state = {
-      currentPlayer: "X",               // X or O
+      currentPlayer: this.startPlayer,               // X or O
       playGrid: this.createGrid(),      // Matrix representing grid
-      status: "Player X",               // Winner, Draw, Player
+      status: "Player " + this.startPlayer,               // Winner, Draw, Player
       gameOver: false,                  // if the game is over or not
       tallyX: 0,
       tallyO: 0,
       tallyDraw: 0
     };
-    this.startPlayer = "X";             //Player that plays first
-    this.numPlayed = 0;                 // Number of moves played
   }
   createGrid() {
     var matrix = [];
@@ -115,6 +115,19 @@ export default class Grid extends Component {
     });
     this.numPlayed = 0;
   }
+  reset() {
+    this.numPlayed = 0;
+    this.startPlayer = "X";
+    this.setState({
+      currentPlayer: this.startPlayer,
+      playGrid: this.createGrid(),
+      status: "Player " + this.startPlayer,
+      gameOver: false,
+      tallyX: 0,
+      tallyO: 0,
+      tallyDraw: 0
+    });
+  }
   render() {
 
     var cells = () => {
@@ -141,6 +154,7 @@ export default class Grid extends Component {
           </tbody>
         </table>
         <button onClick={this.newGame.bind(this)}>Next Game</button>
+        <button onClick={this.reset.bind(this)}>Reset</button>
         <Tally tallyX={this.state.tallyX} tallyO={this.state.tallyO} tallyDraw={this.state.tallyDraw} />
       </div>
     );
