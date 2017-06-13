@@ -8,9 +8,9 @@ export default class Grid extends Component {
       currentPlayer: "X",               // X or O
       playGrid: this.createGrid(),      // Matrix representing grid
       status: "Player X",               // Winner, Draw, Player
-      numPlayed: 1,                     // Number of moves played
       gameOver: false                   // if the game is over or not
     };
+    this.numPlayed = 0;                 // Number of moves played
   }
   createGrid() {
     var matrix = [];
@@ -28,8 +28,7 @@ export default class Grid extends Component {
   }
   play(row, col) {
     if(this.state.status === "Player X" || this.state.status === "Player O"){
-
-      this.setState({numPlayed: (this.state.numPlayed + 1)});
+      this.numPlayed++;
       var _playGrid = this.state.playGrid;
       _playGrid[row][col].letter = this.state.currentPlayer;
       this.setState({
@@ -48,7 +47,7 @@ export default class Grid extends Component {
       return;
     }
 
-    if(this.state.numPlayed === 9) {
+    if(this.numPlayed === 9) {
       console.log("here");
       this.setState({
         status: "Draw",
@@ -100,9 +99,9 @@ export default class Grid extends Component {
       currentPlayer: "X",
       playGrid: this.createGrid(),
       status: "Player X",
-      numPlayed: 0,
       gameOver: false
     });
+    this.numPlayed = 0;
   }
   render() {
 
