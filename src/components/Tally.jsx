@@ -10,7 +10,6 @@ export default class Grid extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({
       tallyX: nextProps.tallyX,
       tallyO: nextProps.tallyO,
@@ -20,16 +19,14 @@ export default class Grid extends Component {
   render() {
     return (
       <table>
-        <tr>
-        <td> X </td>
-        <td> O </td>
-        <td> Draw </td>
-        </tr>
-        <tr>
-        <td> {this.state.tallyX} </td>
-        <td> {this.state.tallyO} </td>
-        <td> {this.state.tallyDraw}</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td> X </td><td> O </td><td> Draw </td>
+          </tr>
+          <tr>
+            <td> {this.state.tallyX} </td><td> {this.state.tallyO} </td><td> {this.state.tallyDraw}</td>
+          </tr>
+        </tbody>
       </table>
     );
   }
